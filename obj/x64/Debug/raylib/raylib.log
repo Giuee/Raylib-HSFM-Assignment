@@ -1,0 +1,20 @@
+﻿  raudio.c
+  rcore.c
+D:\Assignments\HFSM-Assignment\build\external\raylib-master\src\platforms\rcore_desktop_glfw.c(1678,38): warning C4018: '>': signed/unsigned mismatch
+  (compiling source file 'build/external/raylib-master/src/rcore.c')
+  
+D:\Assignments\HFSM-Assignment\build\external\raylib-master\src\platforms\rcore_desktop_glfw.c(1679,39): warning C4018: '>': signed/unsigned mismatch
+  (compiling source file 'build/external/raylib-master/src/rcore.c')
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
+  (compiling source file 'build/external/raylib-master/src/rcore.c')
+      D:\Assignments\HFSM-Assignment\build\external\raylib-master\src\external\glfw\include\GLFW\glfw3.h(123,1):
+      see previous definition of 'APIENTRY'
+  
+  rglfw.c
+  rmodels.c
+  rshapes.c
+  rtext.c
+  rtextures.c
+  Generating Code...
+  raylib.vcxproj -> D:\Assignments\HFSM-Assignment\bin\Debug\raylib.lib
