@@ -11,9 +11,15 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 #include "raymath.h"
 #include "math.h" //used for cosf and sinf 
 #include "AI_HFSM_Field.h" //pulls in the AI state machine and states
-
-
 #include "resource_dir.h"	// utility header for SearchAndSetResourceDir
+
+typedef enum GameState
+{
+	GAMESTATE_MENU,
+	GAMESTATE_PLAY,
+	GAMESTATE_COMBAT,
+	GAMESTATE_GAMEOVER
+} GameState;
 
 //constraints//
 int screen_Width = 1280;
@@ -158,72 +164,164 @@ void StepPhysics(body* b, float dt)
 	b->velocity.y -= b->velocity.y * b->drag * dt;
 }
 
+//wraps a body around the screen edge and comes back in from the opposite edge//
+void WrapBodyPosition(body* b)
+{
+	if (b->position.x < 0.0f)
+	{
+		b->position.x = screen_Width - b->size.x;
+	}
+	else if (b->position.x + b->size.x > screen_Width)
+	{
+		b->position.x = 0.0f;
+	}
+	if (b->position.y < 0.0f)
+	{
+		b->position.y = screen_Height - b->size.y;
+	}
+	else if (b->position.y + b->size.y > screen_Height)
+	{
+		b->position.y = 0.0f;
+	}
+}
+
 int main()
 {
-	InitWindow(screen_Width, screen_Height, "Test");
+	InitWindow(screen_Width, screen_Height, "RPGMaker MVCPP");
 	SearchAndSetResourceDir("resources");
 	SetTargetFPS(60);
 
-	//moving body//
+	//which screen the game is on//
+	GameState currentState = GameState::GAMESTATE_MENU;
+
+	//bodies + enemy state machine made then reset when player presses play//
 	body player;
-	InitBody(&player, Vector2 { screen_Width / 80.0f, 350.0f }, Vector2 { 50.0f, 50.0f }, 1.0f);
-
-	//Enemy Body//
 	body enemy;
-	InitBody(&enemy, Vector2 { 1000.0f, 350.0f }, Vector2 { 50.0f, 50.0f }, 1.0f);
-	enemy.acceleration = 600.0f;
-
-	//Enemy state//
-	AI_HFSM_Field enemyFSM; //Enemy state machine
-	enemyFSM.InitializeStates(enemy);   //creates both states and starts in Wander, this calls OnEnter for us
-
+	AI_HFSM_Field enemyFSM;
 
 	//Main Game Loop//
 	while (!WindowShouldClose())
+
 	{
 		float dt = GetFrameTime();
 
-		//movement//
-		if (IsKeyDown(KEY_D))
+		switch (currentState)
 		{
-			player.velocity.x += player.acceleration * dt;
-		}
-
-		if (IsKeyDown(KEY_A))
+		case GAMESTATE_MENU:
 		{
-			player.velocity.x -= player.acceleration * dt;
-		}
+			if (IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_SPACE))
+			{
+				InitBody(&player, Vector2{ screen_Width / 80.0f, 350.0f }, Vector2{ 50.0f, 50.0f }, 1.0f);
+				InitBody(&enemy, Vector2{ 1000.0f, 350.0f }, Vector2{ 50.0f, 50.0f }, 1.0f);
+				enemy.acceleration = 600.0f;
+				enemyFSM.InitializeStates(enemy);   //creates both states and starts in Wander, this calls OnEnter
 
-		if (IsKeyDown(KEY_S))
+				currentState = GAMESTATE_PLAY;
+			}
+		} break;
+
+		case GAMESTATE_PLAY:
 		{
-			player.velocity.y += player.acceleration * dt;
-		}
 
-		if (IsKeyDown(KEY_W))
+			//movement//
+			if (IsKeyDown(KEY_D))
+			{
+				player.velocity.x += player.acceleration * dt;
+			}
+
+			if (IsKeyDown(KEY_A))
+			{
+				player.velocity.x -= player.acceleration * dt;
+			}
+
+			if (IsKeyDown(KEY_S))
+			{
+				player.velocity.y += player.acceleration * dt;
+			}
+
+			if (IsKeyDown(KEY_W))
+			{
+				player.velocity.y -= player.acceleration * dt;
+			}
+
+			//enemy HFSM//
+			enemyFSM.Update(enemy, player); //HFSM runs whichever state is current and switches when needed
+
+			if (enemyFSM.GetCurrentState()->GetStateID() == e_AI_StateID::Combat) //if the enemy has caught the player, switch the screen to combat state in this case the turn based combat screen
+			{
+				currentState = GAMESTATE_COMBAT; //switch to combat screen when the enemy catches the player
+			}
+
+			//physics//
+			StepPhysics(&player, dt);
+			StepPhysics(&enemy, dt);
+
+			//collision resolution
+			if (AABB(player, enemy))
+			{
+				ResolveCollision(&player, &enemy);
+				currentState = GAMESTATE_COMBAT; //switch to combat screen when the player and enemy collide
+			}
+
+			//wraps player and enemy around the screen
+			WrapBodyPosition(&player);
+			WrapBodyPosition(&enemy);
+		} break; //end of play case 
+
+		case GAMESTATE_COMBAT:
 		{
-			player.velocity.y -= player.acceleration * dt;
-		}
+			//no logic placehodler to see if works can press a key to go back to field
+			if (IsKeyPressed(KEY_SPACE))
+			{
+				// put the bodies well apart so they don't instantly collide again
+				InitBody(&player, Vector2{ 200.0f, 350.0f }, Vector2{ 50.0f, 50.0f }, 1.0f);
+				InitBody(&enemy, Vector2{ 1000.0f, 350.0f }, Vector2{ 50.0f, 50.0f }, 1.0f);
+				enemy.acceleration = 600.0f;
 
-		//enemy wander//
-		enemyFSM.Update(enemy, player); //HFSM runs whichever state is current and switches when needed
-		
+				enemyFSM.InitializeStates(enemy); // recreates the states and starts back in Wander
 
-		//physics//
-		StepPhysics(&player, dt);
-		StepPhysics(&enemy, dt);
+				currentState = GAMESTATE_PLAY;
+			}
+		}break;
 
+		default: break;
+		} //end of update switch 
 
-		//Render Graphics//
-		BeginDrawing();
+			//Render Graphics//
+			BeginDrawing();
+			ClearBackground(RAYWHITE);
 
-		ClearBackground(RAYWHITE);
+			switch (currentState)
+			{
+			case GAMESTATE_MENU:
+			{
+				DrawText("Not an RPG Maker Game", 400, 200, 40, DARKPURPLE);
+				DrawText("Press Enter or Space to Start", 475, 300, 20, DARKPURPLE);
+			} break;
 
-		DrawRectangleV(player.position, player.size, GOLD); //draws character
-		DrawRectangleV(enemy.position, enemy.size, RED); //draws enemy
+			case GAMESTATE_PLAY:
+			{
+				DrawRectangleV(player.position, player.size, GOLD); //draws character//
+				DrawRectangleV(enemy.position, enemy.size, RED);    //draws enemy//
+			} break;
 
-		EndDrawing();
+			case GAMESTATE_COMBAT:
+			{
+				Vector2 combatSize = { 100.0f, 100.0f };
+				Vector2 playerSpot = { 150.0f, screen_Height - 250.0f };
+				Vector2 enemySpot = { screen_Width - 250.0f, 150.0f };
+
+				DrawRectangleV(playerSpot, combatSize, GOLD);
+				DrawRectangleV(enemySpot, combatSize, RED);
+			} break;
+
+			default: break;
+			}
+
+			EndDrawing();
 	}
-	// destroy the window and cleanup the OpenGL context
-	CloseWindow();
-	return 0;
+		// destroy the window and cleanup the OpenGL context
+		CloseWindow();
+		return 0;
 }
+	

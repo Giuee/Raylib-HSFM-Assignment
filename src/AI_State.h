@@ -4,10 +4,9 @@
 //FSM//
 enum class e_AI_StateID
 {
-	Idle,
 	Wander,
 	Seek,
-	Attack
+	Combat
 };
 
 //AI_State is the template every state follows//

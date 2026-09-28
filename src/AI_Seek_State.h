@@ -12,6 +12,6 @@ public:
     void OnExit(body& _agent) override;    // Called when exiting the seek state
 private:
     // The distance at which the agent considers it has "arrived" at the target.
-    const float maxSeekDistance = 80.0f;
-    const float minSeekDistance = 20.0f; // Minimum distance to the target to stop seeking
+    const float maxSeekDistance = 450.0f;
+    const float minSeekDistance = 50.0f; // Minimum distance to the target to stop seeking
 };

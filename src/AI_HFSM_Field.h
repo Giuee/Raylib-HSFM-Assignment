@@ -18,6 +18,7 @@ private:
     // Unique pointers to AI states
     std::unique_ptr<AI_State> seekState;  // Pointer to the seek state
     std::unique_ptr<AI_State> wanderState;  // Pointer to the wander state
+	std::unique_ptr<AI_State> combatState;  // Pointer to the combat state
     // Add more states as needed
 
     // Transition to a new state
