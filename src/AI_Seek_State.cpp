@@ -15,6 +15,10 @@ void AI_Seek_State::OnEnter(body& _agent)
 //will run every frame while chasing
 e_AI_StateID AI_Seek_State::OnUpdate(body& _agent, body& _target, float dt)
 {
+    //position is the top-left corner, so measure between the centres of the boxes instead//
+    Vector2 agentCentre = { _agent.position.x + _agent.size.x * 0.5f, _agent.position.y + _agent.size.y * 0.5f };
+    Vector2 targetCentre = { _target.position.x + _target.size.x * 0.5f, _target.position.y + _target.size.y * 0.5f };
+
     //position is a public field on body, not a function like Pawn's GetPosition(),
     float distanceToTarget = Vector2Distance(_target.position, _agent.position);
 

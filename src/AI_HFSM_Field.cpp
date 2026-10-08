@@ -18,24 +18,24 @@ void AI_HFSM_Field::InitializeStates(body& _agent)
     //combat State
 	combatState = std::make_unique<AI_Combat_State>();
 
-    // Add new states to the state machine as needed
+    //Add new states to the state machine as needed
 
-    // Set the initial state to wander
-    currentAIStatePtr = wanderState.get();  // Set the current state pointer to the wander state
-    currentAIStatePtr->OnEnter(_agent);  // Call the OnEnter method of the initial state
+    //Set the initial state to wander
+    currentAIStatePtr = wanderState.get();  //Set the current state pointer to the wander state
+    currentAIStatePtr->OnEnter(_agent);  //Call the OnEnter method of the initial state
     std::cout << "Initial state: " << currentAIStatePtr->GetStateName() << std::endl;
 }
 
 void AI_HFSM_Field::Update(body& _agent, body& _target)
 {
-    // Update logic based on the current state
+    //Update logic based on the current state
     if (currentAIStatePtr == nullptr)
     {
-        return; // If no current state, do nothing
+        return; //If no current state, do nothing
     }
-    // The update will return the next state ID based on the current state logic
+    //The update will return the next state ID based on the current state logic
 	float dt = GetFrameTime();
-    e_AI_StateID nextStateID = currentAIStatePtr->OnUpdate(_agent, _target, dt);  // Call OnUpdate for the current state
+    e_AI_StateID nextStateID = currentAIStatePtr->OnUpdate(_agent, _target, dt);  //Call OnUpdate for the current state
 
     if (nextStateID != currentAIStatePtr -> GetStateID()) //only switch state when asked for a different one
     {
@@ -48,12 +48,12 @@ void AI_HFSM_Field::TransitionToState(body& _agent, e_AI_StateID _nextStateID)
     if (currentAIStatePtr != nullptr && _nextStateID == currentAIStatePtr->GetStateID())
     {
         std::cout << "Already in the desired state, no transition needed." << std::endl;
-        return; // No transition needed if already in the desired state
+        return; //No transition needed if already in the desired state
     }
 
     if (currentAIStatePtr != nullptr) 
     {
-        currentAIStatePtr->OnExit(_agent);  // Call OnExit for the current state
+        currentAIStatePtr->OnExit(_agent);  //Call OnExit for the current state
     }
 
     AI_State* newStatePtr = nullptr; //picks new state first so any unhandled ID cannot null 
@@ -70,18 +70,18 @@ void AI_HFSM_Field::TransitionToState(body& _agent, e_AI_StateID _nextStateID)
         break;
         // Add more cases for additional states as needed
     default:
-        return; // Handle other states as needed
+        return; //Handle other states as needed
     }
 
     if (currentAIStatePtr != nullptr)
     {
-        currentAIStatePtr->OnExit(_agent);  // Cleans up the old state
+        currentAIStatePtr->OnExit(_agent);  //Cleans up the old state
 	}
 
     // Change to the new state
     currentAIStatePtr = newStatePtr;
     std::cout << "Transitioning to: " << currentAIStatePtr->GetStateName() << std::endl;
-    currentAIStatePtr->OnEnter(_agent);  // Call the OnEnter method of the new state
+    currentAIStatePtr->OnEnter(_agent);  //Call the OnEnter method of the new state
 
 
 }
