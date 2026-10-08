@@ -1,4 +1,4 @@
-A raylib and cpp project exploring the use of hierarchical finite state machines by making a rpg maker style game using field exploration and turn based combat encounters. 
+A raylib and cpp project exploring the use of hierarchical finite state machines by making a rpg maker style game using field movement and then transitioning to turn based combat encounters. 
 
 
 
