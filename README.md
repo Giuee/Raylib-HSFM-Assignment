@@ -1,7 +1,3 @@
-
-Page
-4
-of 4
 # Finite Fantasy 3 A Heirachial State Machine Experiment
 A raylib and c++ project exploring the use of hierarchical finite state machines by making a rpg maker style game using field movement and turn based combat encounters.
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://
@@ -50,10 +46,6 @@ This project includes the following main game features:
 * The HFSM switching between player and enemy turn states as well as a win and lose state
 <img width="400" height="236" alt="20261009-0803-42 0117131" src="https://github.com/user-attachments/assets/5306e658-06e2-4b1c-9719-54c47732a92c" />
 
----
-## Usage
-
----
 ## FAQ❓
 **Controls**
 --
