@@ -2,7 +2,7 @@
 Page
 4
 of 4
-# [Finite Fantasy 3 A Heirachial State Machine Experiment]
+# Finite Fantasy 3 A Heirachial State Machine Experiment
 A raylib and c++ project exploring the use of hierarchical finite state machines by making a rpg maker style game using field movement and turn based combat encounters.
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://
 opensource.org/licenses/MIT)
@@ -42,7 +42,8 @@ This project includes the following main game features:
 * **Description:** Provides the base for basic Turn Based Combat where a player can fight a basic ai that attacks back with an attack, defend buttons and a skill menu .
 * **Characteristics:**
 * The basics of Turn Based combat featuring a skill menu with a powerful attack and a heal, as well as a basic attack and a defend button
-* includes the ai fighting back and switching between player and enemy turn states
+* includes a basic AI that attacks back
+* The HFSM switching between player and enemy turn states as well as a win and lose state
 <img src="images/feature_2_image.png" width="512" alt="Image showcasing Feature 2">
 ---
 ## Usage
