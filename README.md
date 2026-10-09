@@ -2,17 +2,13 @@
 Page
 4
 of 4
-# [Your Game Project Name]
-[A brief one-sentence description of your Unity game or project.]
+# [Finite Fantasy 3 a Heirachial State Machine Experiment]
+A raylib and cpp project exploring the use of hierarchical finite state machines by making a rpg maker style game using field movement and turn based combat encounters.
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://
 opensource.org/licenses/MIT)
 ## 📖 About The Project
-This repository contains the Unity game project **[Your Game Project Name]**.
-Key features include [describe key gameplay mechanics, e.g., "innovative combat
-systems, intricate puzzle designs, and a dynamic narrative structure"]. This
-project aims to deliver a [briefly describe player experience] experience.
-<img src="images/default_project_showcase.png" width="512" alt="Project Showcase
-Image or Video">
+The projects main focus is on HFSM's where I'll explore and set up 2 separate HFSM's in 1 project to work together to create field movement that transitions into turn based combat
+<img width="400" height="234" alt="output-onlinegiftools" src="https://github.com/user-attachments/assets/2f87e4b9-9c8d-40d2-9333-24c0db14a6b0" />
 ---
 ## 📖 Getting Started
 Follow these instructions to get a copy of the project up and running on your local
@@ -58,7 +54,7 @@ progression."].
 * [e.g., "Uses ScriptableObjects for defining weapon and ability properties."].
 * [e.g., "Player feedback is provided through visual effects and haptic
 responses (if applicable)."].
-<img src="images/feature_1_image.png" width="512" alt="Image showcasing Feature 1">
+
 ### Feature 2: [Name of Second Actual Feature/System, e.g., "Procedural Quest
 Generation"]
 * **Description:** [Provide a concise description, e.g., "A system that generates
@@ -82,29 +78,14 @@ Select GameObjects in the Hierarchy (e.g., 'Player', 'LevelManager') to view and
 modify their properties in the Inspector window.
 ---
 ## FAQ❓
-* **"I opened the project, but [specific problem, e.g., 'nothing happens when I
-press Play' or 'I see errors in the Console']."**
-* **Check the Console:** Look for error messages in Unity's Console window
-(Window > General > Console). These often indicate missing scripts, incorrect
-configurations, or compilation issues.
-* **Script References:** Ensure all public script fields in the Inspector that
-expect a reference (e.g., to another GameObject, Prefab, or Component) are
-correctly assigned.
-* **Unity Version:** Double-check that you are using a compatible Unity Editor
-version as specified in the Prerequisites.
+* **"Controls"**
+* -----Field Controls----- WASD to move
+
+-----Turn-Based Controls----- mouse to click on action buttons
 ---
 ## 📖 Branches
 This repository uses the following branches:
-* **`main`**: [Describe purpose, e.g., "Stable development branch containing the
-latest tested features. All core gameplay mechanics (Feature 1, Feature 2) are
-integrated here."].
-* **`feature-b_branch`**: [Describe purpose, e.g., "Development branch for Feature
-B. Currently contains..." or "Archived branch for early development of Feature
-B."].
-* **`feature-a_branch`**: [Describe purpose, e.g., "Development branch for Feature
-A..."].
-*(Adjust branch names and descriptions as per your branching strategy.)*
----
+* **`main`**: All core features including Header Files and C++ files for the hierarchical state machine and gameshell
 ## 📖 Contributing
 The team is open to contributions and feedback.
 If you have a suggestion that would make this better, please fork the repo and
