@@ -12,10 +12,11 @@ extern int skillChosenIndex; //set in main.cpp's draw phase when a skill is clic
 
 const char* PLAYER_TURN_STATE_NAME = "Player Turn"; //constructor for the player turn state, sets the name and ID of the state
 
+//constructor for the player turn state//
 TB_PlayerTurn_State::TB_PlayerTurn_State() : TB_State(e_TB_StateID::PlayerTurn, PLAYER_TURN_STATE_NAME) //Call the base class constructor with the state ID and name
 {
 } 
-
+//On turn start runs and resets all the button flags and the chosen skill//
 void TB_PlayerTurn_State::OnEnter(body& agent)
 {
 	std::cout << "Entering state: " << GetStateName() << std::endl;
@@ -26,7 +27,7 @@ void TB_PlayerTurn_State::OnEnter(body& agent)
 	skillMenuOpen = false;
 	skillChosenIndex = -1; //reset skill chosen index
 }
-
+//runs during the player's turn checks which button was pressed and applies it, then returns the next state//
 e_TB_StateID TB_PlayerTurn_State::OnUpdate(body& agent, body& target, float dt)
 {
 	if (attackButtonPressed)
@@ -100,7 +101,7 @@ e_TB_StateID TB_PlayerTurn_State::OnUpdate(body& agent, body& target, float dt)
 
 	return GetStateID(); //Remain in the Player Turn state until an external event triggers a state change
 }
-
+//player turn ends changes state to enemy turn//
 void TB_PlayerTurn_State::OnExit(body& agent)
 {
 	std::cout << "Exiting state: " << GetStateName() << std::endl; //Log when exiting the state

@@ -4,11 +4,11 @@
 #include "TB_Win_State.h"
 #include "TB_Lose_State.h"
 #include <iostream>
-TB_HFSM_Combat::TB_HFSM_Combat()
+TB_HFSM_Combat::TB_HFSM_Combat() //constructor for the combat state machine
 {
 	currentTBStatePtr = nullptr; //Initialize the current state pointer to nullptr
 }
-
+//creates all four combat states//
 void TB_HFSM_Combat::InitializeStates(body& _agent)
 {
     //Initialize the states for the TB state machine using polymorphic pointers
@@ -27,7 +27,7 @@ void TB_HFSM_Combat::InitializeStates(body& _agent)
     currentTBStatePtr->OnEnter(_agent);  //Call the OnEnter method of the initial state
     std::cout << "Initial state: " << currentTBStatePtr->GetStateName() << std::endl;
 }
-
+//updates the current state and transitions to the next state if needed//
 void TB_HFSM_Combat::Update(body& _agent, body& _target)
 {
     //Update logic based on the current state
@@ -44,7 +44,7 @@ void TB_HFSM_Combat::Update(body& _agent, body& _target)
         TransitionToState(_agent, nextStateID);
     }
 }
-
+//exits the current state, finds the requested state and enters it//
 void TB_HFSM_Combat::TransitionToState(body& _agent, e_TB_StateID _nextStateID)
 {
     if (currentTBStatePtr != nullptr && _nextStateID == currentTBStatePtr->GetStateID())

@@ -7,10 +7,9 @@ AI_HFSM_Field::AI_HFSM_Field()
 {
     // Initialize the AI state machine to the idle state
 }
-
+//creates the wander, seek and combat states and Initialize the states for the AI state machine using polymorphic pointers
 void AI_HFSM_Field::InitializeStates(body& _agent)
 {
-    // Initialize the states for the AI state machine using polymorphic pointers
     // Seek State
     seekState = std::make_unique<AI_Seek_State>();
     // Wander State
@@ -25,7 +24,7 @@ void AI_HFSM_Field::InitializeStates(body& _agent)
     currentAIStatePtr->OnEnter(_agent);  //Call the OnEnter method of the initial state
     std::cout << "Initial state: " << currentAIStatePtr->GetStateName() << std::endl;
 }
-
+//switches between the states based on the current state logic, if the current state returns a different state ID than its own, it will transition to that state
 void AI_HFSM_Field::Update(body& _agent, body& _target)
 {
     //Update logic based on the current state
@@ -42,7 +41,7 @@ void AI_HFSM_Field::Update(body& _agent, body& _target)
         TransitionToState(_agent, nextStateID);
     }
 }
-
+//finds the requested state and enters it
 void AI_HFSM_Field::TransitionToState(body& _agent, e_AI_StateID _nextStateID)
 {
     if (currentAIStatePtr != nullptr && _nextStateID == currentAIStatePtr->GetStateID())

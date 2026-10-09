@@ -5,7 +5,7 @@
 AI_Wander_State::AI_Wander_State() : AI_State(e_AI_StateID::Wander, "Wander")
 {
 }
-
+//runs when entering the state, resets the timer and direction so the enemy will pick a new action on the first frame
 void AI_Wander_State::OnEnter(body& agent)
 {
 	wanderWalking = false;

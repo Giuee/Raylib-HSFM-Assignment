@@ -339,7 +339,7 @@ int main()
 			{
 			case GAMESTATE_MENU:
 			{
-				DrawText("Not an RPG Maker Game", 400, 200, 40, DARKPURPLE);
+				DrawText("Finite Fantasy 3", 400, 200, 40, DARKPURPLE);
 				DrawText("Press Enter or Space to Start", 475, 300, 20, DARKPURPLE);
 			} break;
 
@@ -359,6 +359,7 @@ int main()
 				Vector2 lungeOffset = { 0.0f, 0.0f };
 				Vector2 enemyLungeOffset = { 0.0f, 0.0f };
 
+				//player lunge animation
 				if (playerLungeTimer > 0.0f) 
 				{
 					float elapsed = LUNGE_DURATION - playerLungeTimer;//seconds since the attack started
@@ -379,7 +380,7 @@ int main()
 				Vector2 playerDrawPos = { playerSpot.x + lungeOffset.x, playerSpot.y + lungeOffset.y };
 				DrawRectangleV(playerDrawPos, combatSize, GOLD);
 				
-
+				//enemy lunge animation 
 				if (enemyLungeTimer > 0.0f)
 				{
 					float elapsed = LUNGE_DURATION - enemyLungeTimer;
@@ -403,11 +404,10 @@ int main()
 
 				//Health bars using GuiProgressBar
 				//shape, x, y, width, height, text on left, text on right, value, min, max
-				//player bar, sits just below their box
-
+				
 				float playerHpFloat = (float)player.hp; //Convert player HP to float for the progress bar
 				float enemyHpFloat = (float)enemy.hp; //Convert enemy HP to float for the progress bar
-
+				//player bar, sits just below their box
 				GuiProgressBar(Rectangle{ playerSpot.x - 50.0f, playerSpot.y + combatSize.y + 10.0f, 200.0f, 24.0f },
 					NULL, TextFormat("%d / 100", player.hp), &playerHpFloat, 0.0f, 100.0f);
 				
@@ -415,11 +415,11 @@ int main()
 				GuiProgressBar(Rectangle{ enemySpot.x - 50.0f, enemySpot.y - 34.0f, 200.0f, 24.0f },
 					NULL, TextFormat("%d / 100", enemy.hp), & enemyHpFloat, 0.0f, 100.0f);
 
-
+				//skill menu//
 				static int skillScrollingIndex = 0; //static variable to keep track of the scrolling index for the skill menu
 				static int skillActiveItem = -1; //static variable to keep track of the active item in the skill menu that is seperate from skillScrollingIndex so the player can scroll through the list without changing the active item
 
-				if (!skillMenuOpen) //! not open
+				if (!skillMenuOpen) //! not open (a reminder for myself)
 				{
 					if (GuiButton(Rectangle{ 700, 650, 180, 50 }, "attack")) { attackButtonPressed = true; }//sets the global variable to true so the player turn state can see it and process the attack
 					if (GuiButton(Rectangle{ 1080, 650, 180, 50 }, "defend")) { defendButtonPressed = true; }//sets the global variable to true so the player turn state can see it and process the attack
