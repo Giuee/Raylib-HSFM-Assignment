@@ -17,8 +17,8 @@ Follow these instructions to get a copy of the project up and running on your lo
 machine for development and testing.
 ### Prerequisites
 * **Git** (for cloning the repository).
-* An IDE for C++ and raylib (like **Visual Studio** or **Visual Studio Code** with Unity
-integration).
+*  **Visual Studio 2022** with the C++ desktop development workload
+*  **raylib**
 ### Installation
 1. **Clone the repository:**
 ```sh
@@ -27,8 +27,10 @@ git clone
 username/your-repository.git)
 ```
 
-2. **Open the project sln:**
-*
+2. **Open the project solution:**
+ Open 'Raylib-HSFM-Assignment.sln' in Visual Studio
+3.  **Build and run:**
+*Set the build configuration to **Debug** or **Release** and then run 
 
 ---
 ## Features✨
@@ -36,7 +38,9 @@ This project includes the following main game features:
 ### Feature 1: [Field Movement Hierarchical State Machine"]
 * **Description:** Allows the player to move around in a top down view where an enemy AI wanders around and then chases the player when in range once caught will transition into combat.
 * **Characteristics:**
-* Features a Hierarchical Finite State Machine for the to switch between wandering around and then chasing the player and initiating combat. 
+* Features a Hierarchical Finite State Machine for the to switch between wandering around and then chasing the player and initiating combat.
+<img width="400" height="234" alt="Screen Recording 2026-10-09 180315" src="https://github.com/user-attachments/assets/5a36250b-18ed-429a-a454-a8539ba38d89" />
+
 
 ### Feature 2: [Turn Based Combat Hierarchical State Machine"]
 * **Description:** Provides the base for basic Turn Based Combat where a player can fight a basic ai that attacks back with an attack, defend buttons and a skill menu .
@@ -44,7 +48,8 @@ This project includes the following main game features:
 * The basics of Turn Based combat featuring a skill menu with a powerful attack and a heal, as well as a basic attack and a defend button
 * includes a basic AI that attacks back
 * The HFSM switching between player and enemy turn states as well as a win and lose state
-<img src="images/feature_2_image.png" width="512" alt="Image showcasing Feature 2">
+<img width="400" height="236" alt="20261009-0803-42 0117131" src="https://github.com/user-attachments/assets/5306e658-06e2-4b1c-9719-54c47732a92c" />
+
 ---
 ## Usage
 
