@@ -39,11 +39,10 @@ This project includes the following main game features:
 * Features a Hierarchical Finite State Machine for the to switch between wandering around and then chasing the player and initiating combat. 
 
 ### Feature 2: [Turn Based Combat Hierarchical State Machine"]
-* **Description:** Provides a base for the use of basic Turn Based Combat.
+* **Description:** Provides the base for basic Turn Based Combat where a player can fight a basic ai that attacks back with an attack, defend buttons and a skill menu .
 * **Characteristics:**
-* [e.g., "Ensures replayability with varied objectives and rewards."].
-* [e.g., "Integrates with the narrative system to create emergent storytelling
-opportunities."].
+* The basics of Turn Based combat featuring a skill menu with a powerful attack and a heal, as well as a basic attack and a defend button
+* includes the ai fighting back and switching between player and enemy turn states
 <img src="images/feature_2_image.png" width="512" alt="Image showcasing Feature 2">
 ---
 ## Usage
@@ -60,7 +59,8 @@ mouse to click on action buttons
 
 ## 📖 Branches
 This repository uses the following branches:
-* **`main`**: All core features including Header Files and C++ files for the hierarchical state machines for Field movement and Turn Based Combat 
+* **`main`**: All core features including Header Files and C++ files for the hierarchical state machines for Field movement and Turn Based Combat
+* **`dev`**: Features all core features plus any expansions being worked on
 
 Don't forget to give the project a star! Thanks again!
 ---
